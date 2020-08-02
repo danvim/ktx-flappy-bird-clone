@@ -1,0 +1,20 @@
+
+altas.pack.png
+size: 64,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bird
+  rotate: false
+  xy: 36, 6
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+pipe
+  rotate: false
+  xy: 2, 2
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
