@@ -11,12 +11,13 @@ class MainMenuScreen(val game: Game): KtxScreen {
 
     override fun show() {
         game.viewport.camera.center()
+        Gdx.graphics.setTitle("Flappy Bird Clone")
     }
 
     override fun render(delta: Float) {
         batch.use {
             font.draw(batch, "Flappy", 0f, Constants.WORLD_HEIGHT / 2 + 30f)
-            font.draw(batch, "Tap anywhere to begin!", 0f, Constants.WORLD_HEIGHT / 2)
+            font.draw(batch, "Tap to begin", 0f, Constants.WORLD_HEIGHT / 2)
         }
 
         if (Gdx.input.isTouched) {

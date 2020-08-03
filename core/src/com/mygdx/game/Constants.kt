@@ -11,6 +11,6 @@ object Constants {
 
     const val GRAVITY = 9.81f
     const val BIRD_INITIAL_VELOCITY_Y = 2f
-    const val BIRD_FLAP_VELOCITY_Y = 2f
+    const val BIRD_FLAP_VELOCITY_Y = 3.25f
     const val BIRD_X = 5f
 }

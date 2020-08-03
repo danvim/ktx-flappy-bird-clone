@@ -22,7 +22,6 @@ class ScoreSystem(gameScreen: GameScreen): IteratingSystem(allOf(GapComponent::c
             if (transform.pos.x + Assets.pipeTexture.originalWidth / 2 <= Constants.BIRD_X + Assets.birdTexture.originalWidth / 2) {
                 // gain score
                 gap.tallyScore(world)
-                engine.removeEntity(entity)
             }
         }
     }

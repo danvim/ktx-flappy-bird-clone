@@ -24,27 +24,35 @@ class RenderingSystem(
     private val batch = game.batch
     private val shape by lazy { ShapeRenderer() }
 
+    override fun update(deltaTime: Float) {
+        batch.use {
+            super.update(deltaTime)
+        }
+    }
+
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         // Render
-        val drawable = drawableMap[entity].drawable
+        val drawableComponent = drawableMap[entity]
+        val drawable = drawableComponent.drawable
         val transform = transformMap[entity]
         val (pos, size, origin, rot, scale) = transform
 
-        batch.use {
-            when (drawable) {
-                is NinePatch -> drawable.ninePatch.draw(batch, pos.x, pos.y, origin.x, origin.y, size.x, size.y, scale.x, scale.y, rot)
-                is TextureRegion -> it.draw(drawable.textureRegion, pos.x, pos.y, origin.x, origin.y, size.x, size.y, scale.x, scale.y, rot)
-            }
+        when (drawable) {
+            is NinePatch -> drawable.ninePatch.draw(batch, pos.x, pos.y, origin.x, origin.y, size.x, size.y, scale.x, scale.y, rot)
+            is TextureRegion -> batch.draw(drawable.textureRegion, pos.x, pos.y, origin.x, origin.y, size.x, size.y, scale.x, scale.y, rot)
         }
 
-//        drawBox(transform.box)
+        // Debug
+//        batch.end()
+//        drawBox(transform.box, drawableComponent.debugColor)
+//        batch.begin()
     }
 
     @Suppress("unused")
-    private fun drawBox(rectangle: Rectangle) {
+    private fun drawBox(rectangle: Rectangle, color: Color) {
         shape.projectionMatrix = game.viewport.camera.combined
         shape.use(ShapeRenderer.ShapeType.Line) {
-            it.color = Color.RED
+            it.color = color
             it.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
         }
     }

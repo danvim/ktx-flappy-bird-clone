@@ -2,13 +2,13 @@ package com.mygdx.game
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import ktx.assets.getValue
+import ktx.assets.load
 
 object Assets {
-    val assetManager by lazy { AssetManager().apply {
-        load(ATLAS_NAME, TextureAtlas::class.java)
-    } }
-    val atlas by lazy { assetManager.get<TextureAtlas>(ATLAS_NAME) }
+    val assetManager by lazy { AssetManager() }
     val ATLAS_NAME = "images/altas.pack.atlas"
+    val atlas by assetManager.load<TextureAtlas>(ATLAS_NAME)
     object Sprites {
         val BIRD = "bird"
         val PIPE = "pipe"

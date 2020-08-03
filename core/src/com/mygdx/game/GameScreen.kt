@@ -1,6 +1,7 @@
 package com.mygdx.game
 
 import com.badlogic.ashley.core.PooledEngine
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.mygdx.game.systems.*
 import ktx.app.KtxScreen
@@ -34,5 +35,6 @@ class GameScreen(val game: Game) : KtxScreen {
         game.batch.use {
             game.font.draw(game.batch, glyphLayout, (Constants.WORLD_WIDTH - glyphLayout.width) / 2, Constants.WORLD_HEIGHT - 5f)
         }
+        Gdx.graphics.setTitle("FPS: ${Gdx.graphics.framesPerSecond} - Max Score: ${world.maxScore}")
     }
 }

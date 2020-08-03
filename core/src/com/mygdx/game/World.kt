@@ -9,9 +9,12 @@ import com.mygdx.game.systems.BirdSystem
 import ktx.ashley.getSystem
 import ktx.graphics.color
 import ktx.graphics.use
+import kotlin.math.max
+import kotlin.properties.Delegates
 
 class World(val game: Game, private val engine: PooledEngine) {
-    var score: Int = 0
+    var maxScore = 0
+    var score by Delegates.observable(0) { _, _, new -> maxScore = max(new, maxScore) }
     var isDead = false
 
     private val shape by lazy { ShapeRenderer() }
@@ -27,8 +30,13 @@ class World(val game: Game, private val engine: PooledEngine) {
 
     fun update(delta: Float) {
         if (!isDead) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
                 engine.getSystem<BirdSystem>().flap()
+            }
+        } else {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.R) || Gdx.input.justTouched()) {
+                // reset game
+                reset()
             }
         }
 
