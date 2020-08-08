@@ -49,7 +49,7 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
         }
         val velocity = bird.velocity
         velocity.y -= Constants.GRAVITY * deltaTime
-        birdTransform.pos.y += velocity.y
+        birdTransform.pos.y = (birdTransform.pos.y + velocity.y).coerceAtLeast(Constants.BIRD_DEATH_HEIGHT)
     }
 
     private fun processRotation(bird: BirdComponent, birdTransform: TransformComponent) {
@@ -100,6 +100,6 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
     }
 
     private fun hasLanded(birdTransform: TransformComponent): Boolean {
-        return birdTransform.pos.y + birdTransform.size.y / 3 <= Constants.GROUND_HEIGHT
+        return birdTransform.pos.y <= Constants.BIRD_DEATH_HEIGHT
     }
 }

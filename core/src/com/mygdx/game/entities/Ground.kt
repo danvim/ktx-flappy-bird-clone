@@ -18,7 +18,7 @@ object Ground {
         for (i in 0 until Constants.WORLD_GROUND_COUNT) {
             engine.entity {
                 with<TransformComponent> {
-                    pos.set(i * Constants.GROUND_WIDTH, 0f, -2f)
+                    pos.set(i * Constants.GROUND_WIDTH, 0f, -3f)
                     // +0.1f to make seamless
                     size.set(Constants.GROUND_WIDTH + 0.1f, Constants.GROUND_HEIGHT)
                 }

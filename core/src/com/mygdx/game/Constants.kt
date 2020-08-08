@@ -1,8 +1,15 @@
 package com.mygdx.game
 
+import com.badlogic.gdx.Application
+import com.badlogic.gdx.Gdx
+
 object Constants {
     const val WORLD_WIDTH = 120f
-    const val WORLD_HEIGHT = 200f
+    val WORLD_HEIGHT by lazy {
+        if (Gdx.app.type == Application.ApplicationType.Android) {
+            WORLD_WIDTH / Gdx.graphics.width * Gdx.graphics.height
+        } else 240f
+    }
 
     // Physics
     const val GRAVITY = 9.81f
@@ -16,9 +23,10 @@ object Constants {
     const val GROUND_WIDTH = 8f
 
     // Ground
-    const val GROUND_HEIGHT = WORLD_HEIGHT / 4
+    val GROUND_HEIGHT = WORLD_HEIGHT / 4
     const val WORLD_GROUND_COUNT = WORLD_WIDTH.toInt() / GROUND_WIDTH.toInt() + 2
     const val GROUND_CYCLE_WIDTH = WORLD_GROUND_COUNT * GROUND_WIDTH
+    val BIRD_DEATH_HEIGHT = GROUND_HEIGHT
 
     // Layouts
     const val PIPE_GAP = 50f

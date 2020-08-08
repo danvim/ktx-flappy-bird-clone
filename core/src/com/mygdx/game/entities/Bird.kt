@@ -16,7 +16,7 @@ object Bird {
         engine.entity {
             with<BirdComponent>()
             with<TransformComponent> {
-                pos.set(Constants.BIRD_X, (Constants.WORLD_HEIGHT - textureRegion.originalHeight) / 2, -3f)
+                pos.set(Constants.BIRD_X, (Constants.WORLD_HEIGHT - textureRegion.originalHeight) / 2, -2f)
                 size.set(textureRegion.originalWidth.toFloat(), textureRegion.originalHeight.toFloat())
                 origin.set(textureRegion.originalWidth.toFloat() / 2, textureRegion.originalHeight.toFloat() / 2)
             }
