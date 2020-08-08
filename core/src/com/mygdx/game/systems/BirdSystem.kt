@@ -27,9 +27,7 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
             val birdDrawable = drawableMap[birdEntity]!!
 
             // Process velocity and position
-            val velocity = bird.velocity
-            velocity.y -= Constants.GRAVITY * deltaTime
-            birdTransform.pos.y += velocity.y
+            processPhysics(bird, birdTransform, deltaTime)
 
             // Process rotation
             processRotation(bird, birdTransform)
@@ -45,7 +43,19 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
         }
     }
 
+    private fun processPhysics(bird: BirdComponent, birdTransform: TransformComponent, deltaTime: Float) {
+        if (hasLanded(birdTransform)) {
+            return
+        }
+        val velocity = bird.velocity
+        velocity.y -= Constants.GRAVITY * deltaTime
+        birdTransform.pos.y += velocity.y
+    }
+
     private fun processRotation(bird: BirdComponent, birdTransform: TransformComponent) {
+        if (hasLanded(birdTransform)) {
+            return
+        }
         val velocity = bird.velocity
         val oldRot = bird.oldRot
         if (!oldRot.isNaN()) {
@@ -58,7 +68,7 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
     private fun checkForDeath(birdTransform: TransformComponent, birdDrawable: DrawableComponent) {
         var inGap = false
 
-        if (birdTransform.pos.y + birdTransform.size.y < 0) {
+        if (hasLanded(birdTransform)) {
             // 1. too low
             die()
         } else {
@@ -87,5 +97,9 @@ class BirdSystem(gameScreen: GameScreen) : IteratingSystem(allOf(BirdComponent::
 
     private fun die() {
         world.isDead = true
+    }
+
+    private fun hasLanded(birdTransform: TransformComponent): Boolean {
+        return birdTransform.pos.y + birdTransform.size.y / 3 <= Constants.GROUND_HEIGHT
     }
 }

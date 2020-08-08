@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.mygdx.game.entities.Bird
+import com.mygdx.game.entities.Ground
 import com.mygdx.game.systems.BirdSystem
 import ktx.ashley.getSystem
 import ktx.graphics.color
@@ -26,8 +27,12 @@ class World(val game: Game, private val engine: PooledEngine) {
         isDead = false
 
         Bird.new(engine)
+        Ground.init(engine)
     }
 
+    /**
+     * Run before engine update
+     */
     fun update(delta: Float) {
         if (!isDead) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {

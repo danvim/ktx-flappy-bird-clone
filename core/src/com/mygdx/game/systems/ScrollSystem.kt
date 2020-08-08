@@ -11,17 +11,25 @@ import ktx.ashley.mapperFor
 
 class ScrollSystem(gameScreen: GameScreen) : IteratingSystem(allOf(ScrollComponent::class, TransformComponent::class).get()) {
     private val transformMap = mapperFor<TransformComponent>()
+    private val scrollMap = mapperFor<ScrollComponent>()
     private val world by lazy { gameScreen.world }
 
     override fun processEntity(entity: Entity?, deltaTime: Float) {
         // Move pipes leftwards
         if (entity != null && !world.isDead) {
             val transform = transformMap[entity]!!
+            val scroll = scrollMap[entity]!!
             transform.pos.x -= deltaTime * Constants.PIPE_MOVE_SPEED
 
             if (transform.box.x + transform.box.width < 0f) {
-                // off screen, remove entity
-                engine.removeEntity(entity)
+                // off screen
+                if (scroll.willCycle) {
+                    // recycle entity
+                    transform.pos.x += scroll.cycleWidth
+                } else {
+                    // remove entity
+                    engine.removeEntity(entity)
+                }
             }
         }
     }

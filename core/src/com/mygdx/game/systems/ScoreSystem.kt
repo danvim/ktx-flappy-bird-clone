@@ -19,7 +19,7 @@ class ScoreSystem(gameScreen: GameScreen): IteratingSystem(allOf(GapComponent::c
         if (entity != null) {
             val transform = transformMap[entity]!!
             val gap = gapMap[entity]!!
-            if (transform.pos.x + Assets.pipeTexture.originalWidth / 2 <= Constants.BIRD_X + Assets.birdTexture.originalWidth / 2) {
+            if (transform.pos.x + Assets.Sprites.PIPE.texture.originalWidth / 2 <= Constants.BIRD_X + Assets.Sprites.PIPE.texture.originalWidth / 2) {
                 // gain score
                 gap.tallyScore(world)
             }

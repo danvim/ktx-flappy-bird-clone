@@ -5,16 +5,16 @@ import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.math.MathUtils
 import com.mygdx.game.Assets
 import com.mygdx.game.Constants
-import com.mygdx.game.components.ScrollComponent
 import com.mygdx.game.components.DrawableComponent
 import com.mygdx.game.components.GapComponent
+import com.mygdx.game.components.ScrollComponent
 import com.mygdx.game.components.TransformComponent
 import ktx.ashley.entity
 import ktx.ashley.with
 
 object Pipe {
     private fun new(engine: PooledEngine, height: Float, isFlipped: Boolean) {
-        val textureRegion = Assets.pipeTexture
+        val textureRegion = Assets.Sprites.PIPE.texture
 
         engine.entity {
             with<ScrollComponent>()
@@ -25,7 +25,7 @@ object Pipe {
                 scale.set(1f, if (isFlipped) -1f else 1f)
             }
             with<DrawableComponent> {
-                set(NinePatch(textureRegion, 0, 0, Assets.Sprites.PIPE_EDGE_TOP, 0))
+                set(NinePatch(textureRegion, 0, 0, Constants.PIPE_EDGE_TOP, 0))
             }
         }
     }
@@ -33,7 +33,7 @@ object Pipe {
     fun newRandomPair(engine: PooledEngine) {
         val halvedGap = Constants.PIPE_GAP.toInt() / 2
         newPair(engine, MathUtils.random(
-                Constants.PIPE_SCREEN_MARGIN + halvedGap,
+                Constants.PIPE_SCREEN_MARGIN + Constants.GROUND_HEIGHT.toInt() + halvedGap,
                 Constants.WORLD_HEIGHT.toInt() - Constants.PIPE_SCREEN_MARGIN - halvedGap
         ).toFloat(), Constants.PIPE_GAP)
     }
@@ -52,7 +52,7 @@ object Pipe {
             with<DrawableComponent>()
             with<TransformComponent> {
                 pos.set(Constants.WORLD_WIDTH, bottomY, 0f)
-                size.set(Assets.pipeTexture.originalWidth.toFloat(), gap)
+                size.set(Assets.Sprites.PIPE.texture.originalWidth.toFloat(), gap)
             }
         }
     }

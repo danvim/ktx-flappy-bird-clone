@@ -1,19 +1,26 @@
 
-altas.pack.png
+atlas.pack.png
 size: 64,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 bird
   rotate: false
-  xy: 36, 6
+  xy: 36, 15
   size: 17, 12
   orig: 17, 12
   offset: 0, 0
   index: -1
+ground
+  rotate: false
+  xy: 36, 2
+  size: 8, 11
+  orig: 8, 11
+  offset: 0, 0
+  index: -1
 pipe
   rotate: false
-  xy: 2, 2
+  xy: 2, 11
   size: 32, 16
   orig: 32, 16
   offset: 0, 0

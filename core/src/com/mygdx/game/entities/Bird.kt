@@ -6,18 +6,17 @@ import com.mygdx.game.Constants
 import com.mygdx.game.components.BirdComponent
 import com.mygdx.game.components.DrawableComponent
 import com.mygdx.game.components.TransformComponent
-import com.mygdx.game.utils.Drawable
 import ktx.ashley.entity
 import ktx.ashley.with
 
 object Bird {
     fun new(engine: PooledEngine) {
-        val textureRegion = Assets.birdTexture
+        val textureRegion = Assets.Sprites.BIRD.texture
 
         engine.entity {
             with<BirdComponent>()
             with<TransformComponent> {
-                pos.set(Constants.BIRD_X, (Constants.WORLD_HEIGHT - textureRegion.originalHeight) / 2, -2f)
+                pos.set(Constants.BIRD_X, (Constants.WORLD_HEIGHT - textureRegion.originalHeight) / 2, -3f)
                 size.set(textureRegion.originalWidth.toFloat(), textureRegion.originalHeight.toFloat())
                 origin.set(textureRegion.originalWidth.toFloat() / 2, textureRegion.originalHeight.toFloat() / 2)
             }
